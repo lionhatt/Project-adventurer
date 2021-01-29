@@ -8,7 +8,7 @@ function Login() {
 
     const useStyles = makeStyles((theme) => ({
         paper: {
-            levation: 10, padding: 20, height: 520, width: 300, margin: "20px auto"
+            elevation: 10, padding: 20, height: 520, width: 300, margin: "20px auto"
         },
         button: {
             margin: '20px 0',
