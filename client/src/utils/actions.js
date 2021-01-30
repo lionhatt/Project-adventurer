@@ -1,4 +1,6 @@
-export const SET_USER_NAME = "SET_USER_NAME";
+export const SET_USER_USERNAME = "SET_USER_NAME";
 export const SET_USER_EMAIL = "SET_USER_EMAIL";
 export const SET_USER_PASSWORD = "SET_USER_PASSWORD";
 export const SET_USER_LOGIN = "SET_USER_LOGIN";
+export const SET_USER_LOGOUT = "SET_USER_LOGOUT";
+
