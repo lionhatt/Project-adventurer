@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Paper, TextField, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import loginImg from '../../images/login.png'
+import loginImg from '../../images/login.png';
+import { Link } from "react-router-dom";
+import API from "../utils/API";
+import { useUserContext } from "../utils/Globastate";
+import { SET_USER_LOGIN } from "../utils/actions"
+
 
 function Login() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [state, dispatch] = useUserContext();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        try {
+            let response = await API.getUser(username);
+            if (response.password !== password) {
+                return;
+            }
+            dispatch({ type: SET_USER_LOGIN, payload: response.data })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -41,15 +66,17 @@ function Login() {
                         <img className={classes.img} src={loginImg} alt='login.png'></img>
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <TextField label='Username' placeholder='Enter username' fullWidth required />
+                        <TextField id="username" value={username} onChange={(e) => setUsername(e.target.value)} label='Username' placeholder='Enter username' fullWidth required />
 
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <TextField label='Password' placeholder='Enter password' type='password' fullWidth required />
+                        <TextField id="password" value={password} onChange={(e) => setPassword(e.target.value)} label='Password' placeholder='Enter password' type='password' fullWidth required />
 
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <Button className={classes.button} type='submit' variant="contained" fullWidth>Sign In</Button>
+                        <Link>
+                            <Button onClick={handleLogin} className={classes.button} type='submit' variant="contained" fullWidth>Sign In</Button>
+                        </Link>
                     </Grid>
                 </Grid>
             </Paper>
