@@ -6,7 +6,7 @@ export default {
     },
 
     saveUser: function(userData) {
-        return axios.post("/api/users", bookData)
+        return axios.post("/api/users", userData)
     },
 
     updateUser: function(id) {

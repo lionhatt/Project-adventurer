@@ -10,16 +10,22 @@ import { SET_USER_LOGIN } from "../utils/actions"
 
 
 function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+
     const [state, dispatch] = useUserContext();
+
+    const [formObject, setFormObject] = useState({})
+
+    function handleInputChange(event) {
+        const { name, value } = event.target;
+        setFormObject({ ...formObject, [name]: value })
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            let response = await API.getUser(username);
-            if (response.password !== password) {
+            let response = await API.getUser(formObject.username);
+            if (response.data.password !== formObject.password) {
                 return;
             }
             dispatch({ type: SET_USER_LOGIN, payload: response.data })
@@ -66,11 +72,11 @@ function Login() {
                         <img className={classes.img} src={loginImg} alt='login.png'></img>
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <TextField id="username" value={username} onChange={(e) => setUsername(e.target.value)} label='Username' placeholder='Enter username' fullWidth required />
+                        <TextField id="username" name="username" onChange={handleInputChange} label='Username' placeholder='Enter username' fullWidth required />
 
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <TextField id="password" value={password} onChange={(e) => setPassword(e.target.value)} label='Password' placeholder='Enter password' type='password' fullWidth required />
+                        <TextField id="password" name="password" onChange={handleInputChange} label='Password' placeholder='Enter password' type='password' fullWidth required />
 
                     </Grid>
                     <Grid item xs={12} align='center'>
