@@ -1,14 +1,21 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Login from './components/userAuthentication/login'
-import SignUp from './components/userAuthentication/signup'
 import UserAuthentication from './pages/userAuthentication'
+import { UserProvider } from "./utils/GlabalState"
 
 function App() {
   return (
-    <div className="App">
-      <UserAuthentication />
-    </div>
+    <Router>
+      <div className="App">
+        <UserProvider>
+          <Switch>
+            <Route exact path="/" component={UserAuthentication} />   
+          </Switch>
+        </UserProvider>
+      </div>
+    </Router>
+
   );
 }
 
