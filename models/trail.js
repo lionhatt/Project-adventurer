@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const TrialSchema = new Schema({
+const trailSchema = new Schema({
     image: {type: String, required: true},
     name: {type: String, required: true},
     location: {type: String, required: true},
@@ -14,6 +14,6 @@ const TrialSchema = new Schema({
     route: {type: String, required: true},
 });
 
-const User = mongoose.model("User", userSchema);
+const Trail = mongoose.model("Trail", trailSchema);
 
-module.exports = User;
+module.exports = Trail;
