@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -11,89 +11,106 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { green } from '@material-ui/core/colors';
+import { withRouter } from 'react-router-dom';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Button from "@material-ui/core/Button"
 
 
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            flexGrow: 1,
-        },
-        menuButton: {
-            marginRight: theme.spacing(2),
-        },
-        title: {
-            flexGrow: 1,
-        },
-    }));
 
- function Nav() {
-        const classes = useStyles();
-        const [auth, setAuth] = React.useState(true);
-        const [anchorEl, setAnchorEl] = React.useState(null);
-        const open = Boolean(anchorEl);
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+        color: green[800],
+    },
+    button: {
+        color: green[800]
+    }
+}));
 
-        const handleChange = (event) => {
-            setAuth(event.target.checked);
-        };
+function Nav(props) {
+    const { history } = props;
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
-        const handleMenu = (event) => {
-            setAnchorEl(event.currentTarget);
-        };
+    const handleChange = (event) => {
+        setAuth(event.target.checked);
+    };
 
-        const handleClose = () => {
-            setAnchorEl(null);
-        };
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-        return (
-            <div className={classes.root}>
-                <FormGroup>
-                    <FormControlLabel
-                        control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-                        label={auth ? 'Logout' : 'Login'}
-                    />
-                </FormGroup>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+    const handleMenuClick = (pageURL) => {
+        history.push(pageURL)
+        setAnchorEl(null);
+    };
+
+
+    return (
+        <div className={classes.root}>
+            <AppBar position="static" color="transparent">
+                <Toolbar>
+                    <div>
+                        {isMobile? (<>
+                        <IconButton onClick={handleMenu} edge="start" className={classes.menuButton} className={classes.button} aria-label="menu">
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            Photos
-          </Typography>
-                        {auth && (
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={open}
+                            onClose={() => setAnchorEl(null)}
+                        >
+                            <MenuItem onClick={() => handleMenuClick('/')}>Home</MenuItem>
+                            <MenuItem onClick={() => handleMenuClick('/')}>Advantures</MenuItem>
+                        </Menu>
+                        </>) : (
                             <div>
-                                <IconButton
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleMenu}
-                                    color="inherit"
-                                >
-                                    <AccountCircle />
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={handleClose}
-                                >
-                                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                                </Menu>
+                            <Button className={classes.button} onClick={() => handleMenuClick('/')}>Home</Button>
+                            <Button className={classes.button}> Advantures</Button>
                             </div>
-                        )}
-                    </Toolbar>
-                </AppBar>
-            </div>
-        );
-    }
+                        )
+                    }
+                        
+                    </div>
 
-export default Nav;
+                    <Typography variant="h4" className={classes.title}>
+                        Advanturer
+                        </Typography>
+                    <div>
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={() => handleMenuClick('/user')}
+                            className={classes.button}
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                    </div>
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
+}
+
+export default withRouter(Nav);

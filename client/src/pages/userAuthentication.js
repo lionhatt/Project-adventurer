@@ -13,7 +13,7 @@ function UserAuthentication() {
 
     const useStyles = makeStyles(() => ({
         paper: {
-            elevation: 20, width: 340, margin: "20px auto"
+            elevation: 40, width: 340, margin: "20px auto"
         },
     }));
 
