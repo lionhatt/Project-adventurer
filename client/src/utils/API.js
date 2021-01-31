@@ -33,5 +33,4 @@ export default {
         return axios.put("/api/trails/"+id)
     },
 
-
 }

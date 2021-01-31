@@ -235,7 +235,6 @@ function Trails(props) {
                                         </Typography>
                                     </Grid>
                                 </Grid>
-
                             </Grid>
                         </Grid>
 
