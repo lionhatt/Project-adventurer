@@ -4,9 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import loginImg from '../../images/login.png';
 import { Link } from "react-router-dom";
-import API from "../utils/API";
-import { useUserContext } from "../utils/Globastate";
-import { SET_USER_LOGIN } from "../utils/actions"
+import API from "../../utils/API";
+import { useUserContext } from "../../utils/GlobalState";
+import { SET_USER_LOGIN } from "../../utils/actions"
 
 
 function Login() {

@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Grid, Paper, TextField, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import SignupImg from '../../images/signup.png'
 import { Link } from "react-router-dom";
-import API from "../utils/API";
-import { useUserContext } from "../utils/Globastate";
-import { SET_USER_LOGIN } from "../utils/actions"
+import API from "../../utils/API";
+import { useUserContext } from "../../utils/GlobalState";
+import { SET_USER_LOGIN } from "../../utils/actions"
 
 function SignUp() {
 
     const [state, dispatch] = useUserContext();
 
-    const [formObject, setFormObject] = useState({})
+    const [formObject, setFormObject] = useState({
+        username: "",
+        email: "",
+        password: ""
+    })
 
     function handleInputChange(event) {
         const { name, value } = event.target;
@@ -23,7 +27,7 @@ function SignUp() {
     const handleSignUp = async (e) => {
         e.preventDefault();
         try{
-            let checkUserExist = await API.getUser(username);
+            let checkUserExist = await API.getUser(formObject.username);
             if(checkUserExist.data === null) {
                 let response = await API.saveUser({
                     username: formObject.username,
@@ -72,13 +76,13 @@ function SignUp() {
                         <img className={classes.img} src={SignupImg} alt='signup.png'></img>
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <TextField id="username" name="username" onChange={handleInputChange} label='Username' placeholder='Enter username' fullWidth required />
+                        <TextField name="username" value={formObject.username} onChange={handleInputChange} label='Username' placeholder='Enter username' fullWidth required />
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <TextField id="email" name="email" onChange={handleInputChange} label='email' placeholder='xxx@xxx.com' fullWidth required />
+                        <TextField name="email" value={formObject.email} onChange={handleInputChange} label='email' placeholder='xxx@xxx.com' fullWidth required />
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <TextField id="password" name="password" onChange={handleInputChange} label='Password' placeholder='Enter password' type='password' fullWidth required />
+                        <TextField name="password" value={formObject.password} onChange={handleInputChange} label='Password' placeholder='Enter password' type='password' fullWidth required />
 
                     </Grid>
                     <Grid item xs={12} align='center'>
