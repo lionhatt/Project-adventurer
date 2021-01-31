@@ -6,9 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { green } from '@material-ui/core/colors';
@@ -81,12 +78,12 @@ function Nav(props) {
                             onClose={() => setAnchorEl(null)}
                         >
                             <MenuItem onClick={() => handleMenuClick('/')}>Home</MenuItem>
-                            <MenuItem onClick={() => handleMenuClick('/')}>Advantures</MenuItem>
+                            <MenuItem onClick={() => handleMenuClick('/')}>Adventures</MenuItem>
                         </Menu>
                         </>) : (
                             <div>
                             <Button className={classes.button} onClick={() => handleMenuClick('/')}>Home</Button>
-                            <Button className={classes.button}> Advantures</Button>
+                            <Button className={classes.button}> Adventures</Button>
                             </div>
                         )
                     }
@@ -94,7 +91,7 @@ function Nav(props) {
                     </div>
 
                     <Typography variant="h4" className={classes.title}>
-                        Advanturer
+                        Adventurer
                         </Typography>
                     <div>
                         <IconButton

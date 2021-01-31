@@ -4,6 +4,7 @@ import "./App.css";
 import UserAuthentication from './pages/userAuthentication'
 import Trails from './pages/Trails'
 import Nav from './components/nav'
+import Footer from './components/footer'
 import { UserProvider } from "./utils/GlobalState"
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
               <Trails />
             </Route>   
           </Switch>
+          <Footer />
         </UserProvider>
       </div>
     </Router>
