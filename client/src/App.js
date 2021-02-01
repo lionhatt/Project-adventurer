@@ -5,6 +5,7 @@ import UserAuthentication from './pages/userAuthentication'
 import Trails from './pages/Trails'
 import Nav from './components/nav'
 import Footer from './components/footer'
+import Detail from './pages/Detail'
 import { UserProvider } from "./utils/GlobalState"
 
 function App() {
@@ -17,9 +18,12 @@ function App() {
             <Route exact path="/user">
               <UserAuthentication />
             </Route>
-            <Route exact path="/">
+            <Route exact path={["/", "/trails"]}>
               <Trails />
-            </Route>   
+            </Route>
+            <Route exact path="/trails/:id">
+              <Detail />
+            </Route>    
           </Switch>
           <Footer />
         </UserProvider>

@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { Grid, Paper, TextField, Button, Typography, Container, Box, Menu, MenuItem, FormControlLabel, Checkbox, Chip, ButtonBase } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Grid, Paper, TextField, Button, Typography, Container, Box, Menu, MenuItem, FormControlLabel, Checkbox, Chip, ButtonBase, List, ListItem } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { green } from '@material-ui/core/colors';
+import API from "../utils/API";
+import { withRouter } from 'react-router-dom';
+
+
+
 
 const StyledMenu = withStyles({
     paper: {
@@ -36,12 +41,33 @@ const useStyles = makeStyles((theme) => ({
         width: 200, height: 200
     },
     img: {
-        margin: 'auto', display: 'block', maxWidth: '100%', maxHeight: '100%'
+        margin: 'auto', display: 'block', width: '100%', height: '100%'
     }
 }));
 
 function Trails(props) {
+
+    const { history } = props;
+    
     const classes = useStyles();
+
+    const [trails, setTrails] = useState([])
+
+    useEffect(() => {
+        loadTrails()
+    }, [])
+
+    function loadTrails() {
+        API.getTrails()
+            .then(res =>
+                setTrails(res.data)
+            )
+            .catch(err => console.log(err))
+    }
+
+    const handleMenuClick = (pageURL) => {
+        history.push(`/trails/${pageURL}`)
+    };
 
     const [anchorDifficulty, setAnchorDifficulty] = useState(null);
 
@@ -106,14 +132,15 @@ function Trails(props) {
     const { easy, moderate, hard } = stateFilter.difficulty
 
     return <div className={classes.root}>
-        <Container maxWidth="lg" spacing={3}>
+        <Container maxWidth="lg" spacing={10}>
             <Grid container spacing={1}>
-                <Grid item xs>
+                <Grid item xs={3}>
                     <Button
                         aria-controls="difficulty-menu"
                         aria-haspopup="true"
                         variant="outlined"
-                        onClick={handleDifficultyClick}>
+                        onClick={handleDifficultyClick}
+                        fullWidth>
                         Difficulty
                             <KeyboardArrowDownIcon />
                     </Button>
@@ -145,12 +172,13 @@ function Trails(props) {
                     </StyledMenu>
 
                 </Grid>
-                <Grid item xs>
+                <Grid item xs={3}>
                     <Button
                         aria-controls="length-menu"
                         aria-haspopup="true"
                         variant="outlined"
-                        onClick={handleLengthClick}>
+                        onClick={handleLengthClick}
+                        fullWidth>
                         Length
                             <KeyboardArrowDownIcon />
                     </Button>
@@ -164,12 +192,13 @@ function Trails(props) {
                         <MenuItem>Length</MenuItem>
                     </StyledMenu>
                 </Grid>
-                <Grid item xs>
+                <Grid item xs={3}>
                     <Button
                         aria-controls="elevation-menu"
                         aria-haspopup="true"
                         variant="outlined"
-                        onClick={handleElevationClick}>
+                        onClick={handleElevationClick}
+                        fullWidth>
                         Elevation
                             <KeyboardArrowDownIcon />
                     </Button>
@@ -183,12 +212,13 @@ function Trails(props) {
                         <MenuItem>Elevation</MenuItem>
                     </StyledMenu>
                 </Grid>
-                <Grid item xs>
+                <Grid item xs={3}>
                     <Button
                         aria-controls="route-menu"
                         aria-haspopup="true"
                         variant="outlined"
-                        onClick={handleRouteClick}>
+                        onClick={handleRouteClick}
+                        fullWidth>
                         Route
                             <KeyboardArrowDownIcon />
                     </Button>
@@ -203,46 +233,56 @@ function Trails(props) {
                     </StyledMenu>
                 </Grid>
             </Grid>
-            <Grid container spacing={3}>
-                <Grid item xs>
-                    <Paper className={classes.paper}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={3} lg={3} className={classes.image}>
-                                <img className={classes.img} alt="image" src="https://cdn-assets.alltrails.com/uploads/photo/image/22011982/extra_large_706ba1a5f39608dbe66b5df07ce4112f.jpg" />
-                            </Grid>
-                            <Grid item xs={12} md={9} lg={9} container>
-                                <Grid item container direction="column" align="left">
-                                    <Grid item>
-                                        <Typography gutterBottom variant="subtitle1">
-                                            Yarra Bend Park Loop
-                                        </Typography>
-                                        <Typography gutterBottom variant="body2" color="textSecondary">
-                                            Yarra Bend Park
-                                        </Typography>
+            {trails.length ? (
+                <>
+                    {trails.map(trail => (
+                        <Grid key={trail._id} onClick={() => handleMenuClick(trail._id)} container spacing={5}>
+                            <Grid item xs>
+                                <Paper className={classes.paper}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} md={3} lg={3} className={classes.image}>
+                                            <img className={classes.img} alt="image" src={trail.image} />
+                                        </Grid>
+                                        <Grid item xs={12} md={9} lg={9} container>
+                                            <Grid item container direction="column" align="left">
+                                                <Grid item>
+                                                    <Typography variant="subtitle1">
+                                                        {trail.name}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography variant="body2" color="textSecondary">
+                                                        {trail.location}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item spacing={1}>
+                                                    <Chip label={trail.difficulty} />
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography variant="body2" color="textSecondary">
+                                                        Length:{trail.length}km    Est.{trail.duration}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography gutterBottom align="left" variant="body1">
+                                                        {trail.intro}                                                    </Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item spacing={1}>
-                                        <Chip label="Moderate" />
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography gutterBottom variant="body2" color="textSecondary">
-                                            Length:9.5 km   Est. 2 h 39 m
-                                        </Typography>
 
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography gutterBottom align="left" variant="body1">
-                                            Yarra Bend Park Loop is a 9.5 kilometer heavily trafficked loop trail located near Melbourne, Victoria, Australia that features a river and is rated as moderate. The trail is primarily used for hiking, walking, running, and nature trips and is year-round.
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
+                                </Paper>
                             </Grid>
                         </Grid>
-
-                    </Paper>
-                </Grid>
-            </Grid>
+                    ))}
+                </>
+            ) : (
+                    <Typography variant="h3">
+                        No Results to Display
+                    </Typography>
+                )}
         </Container>
     </div>
 }
 
-export default Trails;
+export default withRouter(Trails);

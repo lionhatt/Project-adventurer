@@ -34,7 +34,7 @@ const trailSeed = [
         difficulty: "hard",
         length: 2.3,
         elevation: 339,
-        durtion:"1 h 19 m",
+        duration:"1 h 19 m",
         route: "Out & back"
     },
     {
