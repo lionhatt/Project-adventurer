@@ -240,10 +240,10 @@ function Trails(props) {
                             <Grid item xs>
                                 <Paper className={classes.paper}>
                                     <Grid container spacing={2}>
-                                        <Grid item xs={12} md={3} lg={3} className={classes.image}>
+                                        <Grid item xs={12} sm={6} md={3} lg={3} className={classes.image}>
                                             <img className={classes.img} alt="image" src={trail.image} />
                                         </Grid>
-                                        <Grid item xs={12} md={9} lg={9} container>
+                                        <Grid item xs={12} sm={6} md={9} lg={9} container>
                                             <Grid item container direction="column" align="left">
                                                 <Grid item>
                                                     <Typography variant="subtitle1">
