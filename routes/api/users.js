@@ -10,7 +10,11 @@ router.route("/")
 // .get(usersController.findOne)
 
 router.route("/:id")
-.get(usersController.findOne)
+// .get(usersController.findOne)
+.get(usersController.findById)
 .put(usersController.update)
+
+router.route("/username/:id")
+.get(usersController.findOne)
 
 module.exports = router;

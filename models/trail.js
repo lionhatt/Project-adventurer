@@ -7,10 +7,11 @@ const trailSchema = new Schema({
     location: {type: String, required: true},
     address: {type: String, required: true},
     intro: {type: String, required: true},
-    discription: {type: String, required: true},
+    discription: {type: String},
     difficulty: {type: String, required: true},
     length: {type: Number, required: true},
     elevation: {type: Number, required: true},
+    duration: {type: String, required: true},
     route: {type: String, required: true},
 });
 
