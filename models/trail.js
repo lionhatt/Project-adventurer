@@ -13,6 +13,12 @@ const trailSchema = new Schema({
     elevation: {type: Number, required: true},
     duration: {type: String, required: true},
     route: {type: String, required: true},
+    adventures: [
+        {
+            type: Schema.Types.Objectid,
+            ref: "Adventure"
+        }
+    ]
 });
 
 const Trail = mongoose.model("Trail", trailSchema);
