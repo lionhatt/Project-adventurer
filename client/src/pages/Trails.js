@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 function Trails(props) {
 
     const { history } = props;
-    
+
     const classes = useStyles();
 
     const [trails, setTrails] = useState([])
@@ -99,7 +99,35 @@ function Trails(props) {
         setAnchorElevation(null);
     };
 
-    const [anchorRoute, setAnchorRoute] = React.useState(null);
+    const [difficultyFilter, setDifficultyFilter] = React.useState({
+        easy: true,
+        moderate: true,
+        hard: true,
+    })
+
+    const handleDifficultyChange = (event) => {
+        setDifficultyFilter({
+            ...difficultyFilter, [event.target.name]: event.target.checked
+        }
+        )
+    }
+    const { easy, moderate, hard } = difficultyFilter
+
+    const [routeFilter, setRouteFilter] = React.useState({
+        loop: true,
+        out: true,
+        point: true,
+    })
+
+    const handleRouteChange = (event) => {
+        setRouteFilter({
+            ...routeFilter, [event.target.name]: event.target.checked
+        }
+        )
+    }
+    const { loop, out, point } = routeFilter
+
+    const [anchorRoute, setAnchorRoute] = useState(null);
 
     const handleRouteClick = (event) => {
         setAnchorRoute(event.currentTarget);
@@ -109,27 +137,7 @@ function Trails(props) {
         setAnchorRoute(null);
     };
 
-    const [stateFilter, setStateFilter] = React.useState({
-        difficulty: {
-            easy: true,
-            moderate: true,
-            hard: true,
-        },
-        route: {
-            loop: true,
-            out: true,
-            point: true
-        },
-    })
 
-    const handleDifficultyChange = (event) => {
-        setStateFilter({
-            ...stateFilter, difficulty: {
-                ...stateFilter.difficulty, [event.target.name]: event.target.checked
-            }
-        })
-    }
-    const { easy, moderate, hard } = stateFilter.difficulty
 
     return <div className={classes.root}>
         <Container maxWidth="lg" spacing={10}>
@@ -213,7 +221,7 @@ function Trails(props) {
                     </StyledMenu>
                 </Grid>
                 <Grid item xs={3}>
-                    <Button
+                <Button
                         aria-controls="route-menu"
                         aria-haspopup="true"
                         variant="outlined"
@@ -229,7 +237,24 @@ function Trails(props) {
                         open={Boolean(anchorRoute)}
                         onClose={handleRouteClose}
                     >
-                        <MenuItem>Route</MenuItem>
+                        <MenuItem>
+                            <FormControlLabel
+                                control={<Checkbox checked={loop} onChange={handleRouteChange} name="loop" />}
+                                label="Loop"
+                            />
+                        </MenuItem>
+                        <MenuItem>
+                            <FormControlLabel
+                                control={<Checkbox checked={out} onChange={handleRouteChange} name="out" />}
+                                label="Out & back"
+                            />
+                        </MenuItem>
+                        <MenuItem>
+                            <FormControlLabel
+                                control={<Checkbox checked={point} onChange={handleRouteChange} name="point" />}
+                                label="Point to point"
+                            />
+                        </MenuItem>
                     </StyledMenu>
                 </Grid>
             </Grid>

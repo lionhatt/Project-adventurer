@@ -21,7 +21,7 @@ const trailSeed = [
         difficulty: "moderate",
         length: 9.5,
         elevation: 127,
-        duration:"2 h 39 m",
+        duration: "2 h 39 m",
         route: "Loop"
     },
     {
@@ -34,7 +34,7 @@ const trailSeed = [
         difficulty: "hard",
         length: 2.3,
         elevation: 339,
-        duration:"1 h 19 m",
+        duration: "1 h 19 m",
         route: "Out & back"
     },
     {
@@ -47,7 +47,7 @@ const trailSeed = [
         difficulty: "easy",
         length: 29.6,
         elevation: 273,
-        duration:"8 h 1 m",
+        duration: "8 h 1 m",
         route: "Loop"
     },
     {
@@ -60,7 +60,7 @@ const trailSeed = [
         difficulty: "moderate",
         length: 4.8,
         elevation: 336,
-        duration:"1 h 57 m",
+        duration: "1 h 57 m",
         route: "Loop"
     },
     {
@@ -73,7 +73,7 @@ const trailSeed = [
         difficulty: "moderate",
         length: 12.1,
         elevation: 389,
-        duration:"3 h 53 m",
+        duration: "3 h 53 m",
         route: "Loop"
     },
     {
@@ -86,7 +86,7 @@ const trailSeed = [
         difficulty: "easy",
         length: 7.6,
         elevation: 388,
-        duration:"2 h 45 m",
+        duration: "2 h 45 m",
         route: "Loop"
     },
     {
@@ -99,7 +99,7 @@ const trailSeed = [
         difficulty: "easy",
         length: 2.1,
         elevation: 82,
-        duration:"42 m",
+        duration: "42 m",
         route: "Out & back"
     },
     {
@@ -112,7 +112,7 @@ const trailSeed = [
         difficulty: "easy",
         length: 4.8,
         elevation: 235,
-        duration:"1 h 44 m",
+        duration: "1 h 44 m",
         route: "Loop"
     },
     {
@@ -125,7 +125,7 @@ const trailSeed = [
         difficulty: "moderate",
         length: 30.1,
         elevation: 240,
-        duration:"8 h 3 m",
+        duration: "8 h 3 m",
         route: "Point to point"
     },
     {
@@ -138,13 +138,77 @@ const trailSeed = [
         difficulty: "moderate",
         length: 38.1,
         elevation: 494,
-        duration:"10 h 38 m",
+        duration: "10 h 38 m",
         route: "Point to point"
     },
 ];
 
+const userSeed = [
+    {
+        username: "admin",
+        email: "gavindxy@gmail.com",
+        password: "19931026",
+    },
+    {
+        username: "user1",
+        email: "user1@gmail.com",
+        password: "19931026",
+    },
+    {
+        username: "user2",
+        email: "user2@gmail.com",
+        password: "19931026",
+    },
+    {
+        username: "user3",
+        email: "user3@gmail.com",
+        password: "19931026",
+    },
+    {
+        username: "user4",
+        email: "user4@gmail.com",
+        password: "19931026",
+    },
+    {
+        username: "user5",
+        email: "user5@gmail.com",
+        password: "19931026",
+    },
+    {
+        username: "user6",
+        email: "user6@gmail.com",
+        password: "19931026",
+    },
+    {
+        username: "user7",
+        email: "user7@gmail.com",
+        password: "19931026",
+    },
+    {
+        username: "user8",
+        email: "user8@gmail.com",
+        password: "19931026",
+    },
+    {
+        username: "user9",
+        email: "user9@gmail.com",
+        password: "19931026",
+    },
+]
+
 db.Trail.remove({})
     .then(() => db.Trail.collection.insertMany(trailSeed))
+    .then(data => {
+        console.log(data.result.n + " records inserted!");
+        process.exit(0);
+    })
+    .catch(err => {
+        console.error(err);
+        process.exit(1);
+    });
+
+    db.User.remove({})
+    .then(() => db.User.collection.insertMany(userSeed))
     .then(data => {
         console.log(data.result.n + " records inserted!");
         process.exit(0);

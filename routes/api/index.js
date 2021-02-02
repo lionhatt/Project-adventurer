@@ -6,6 +6,6 @@ const adventureRoutes = require('./adventures')
 //User routes
 router.use('/users', userRoutes);
 router.use('/trails', trailRoutes);
-router.use('./adventures', adventureRoutes)
+router.use('/adventures', adventureRoutes)
 
 module.exports = router
