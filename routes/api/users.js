@@ -4,17 +4,16 @@ const usersController = require("../../controllers/usersController");
 // Matches with "/api/users"
 router.route("/")
 .get(usersController.findAll)
-.post(usersController.create)
-
-// router.route("/:username")
-// .get(usersController.findOne)
+.post(usersController.create);
 
 router.route("/:id")
-// .get(usersController.findOne)
 .get(usersController.findById)
-.put(usersController.update)
+.put(usersController.update);
+
+router.route("/addadventure/:id")
+.put(usersController.addAdventureToUser)
 
 router.route("/username/:id")
-.get(usersController.findOne)
+.get(usersController.findOne);
 
 module.exports = router;

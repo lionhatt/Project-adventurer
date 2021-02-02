@@ -17,6 +17,10 @@ export default {
         return axios.put("/api/users/"+id)
     },
 
+    addAdventureToUser: function(id, adventureId) {
+        return axios.put(`/api/users/${id}`, adventureId)
+    },
+
     getTrails: function() {
         return axios.get("/api/trails");   
     },
@@ -32,5 +36,27 @@ export default {
     updateTrail: function(id) {
         return axios.put("/api/trails/"+id)
     },
+
+    addAdventureToTrail: function(id, adventureId) {
+        return axios.put(`/api/trails/${id}`, adventureId)
+    },
+
+    getAdventures: function() {
+        return axios.get("/api/adventures");   
+    },
+
+    getAdventure: function(id) {
+        return axios.get("/api/adventures/" + id);
+    },
+
+    saveAdventure: function(userData) {
+        return axios.post("/api/adventures", userData)
+    },
+
+    updateAdventure: function(id) {
+        return axios.put("/api/adventures/"+id)
+    },
+
+
 
 }

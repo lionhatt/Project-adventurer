@@ -34,7 +34,7 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    addUserToAdventure: function (req, res) {
+    addAdventureToUser: function (req, res) {
         db.User.findByIdAndUpdate(
             req.params.id, {$push: {advantures: req.body.data._id}},
             { new: true, useFindAndModify: false }

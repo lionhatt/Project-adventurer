@@ -14,4 +14,8 @@ router
   .put(trailsController.update)
   .delete(trailsController.remove);
 
-module.exports = router;
+router
+  .route("/addadventure/:id")
+  .put(trailsController.addAdventureToTrail);
+
+  module.exports = router;

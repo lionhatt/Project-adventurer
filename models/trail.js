@@ -15,7 +15,7 @@ const trailSchema = new Schema({
     route: {type: String, required: true},
     adventures: [
         {
-            type: Schema.Types.Objectid,
+            type: Schema.Types.ObjectId,
             ref: "Adventure"
         }
     ]
