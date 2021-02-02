@@ -3,13 +3,15 @@ import { Grid, Paper, TextField, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import loginImg from '../../images/login.png';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import API from "../../utils/API";
 import { useUserContext } from "../../utils/GlobalState";
 import { SET_USER_LOGIN } from "../../utils/actions"
 
 
-function Login() {
+function Login(props) {
+
+    const { history } = props;
 
     const [state, dispatch] = useUserContext();
 
@@ -25,10 +27,14 @@ function Login() {
 
         try {
             let response = await API.getUser(formObject.username);
+            console.log(response)
             if (response.data.password !== formObject.password) {
                 return;
+            } else {
+                let setUser = await dispatch({ type: SET_USER_LOGIN, payload: response.data })
+                console.log(setUser)
+                history.goBack();
             }
-            dispatch({ type: SET_USER_LOGIN, payload: response.data })
         } catch (err) {
             console.log(err)
         }
@@ -91,4 +97,4 @@ function Login() {
     )
 }
 
-export default Login;
+export default withRouter(Login);

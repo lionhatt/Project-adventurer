@@ -221,7 +221,7 @@ function Trails(props) {
                     </StyledMenu>
                 </Grid>
                 <Grid item xs={3}>
-                <Button
+                    <Button
                         aria-controls="route-menu"
                         aria-haspopup="true"
                         variant="outlined"

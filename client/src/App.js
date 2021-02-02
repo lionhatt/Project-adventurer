@@ -6,6 +6,7 @@ import Trails from './pages/Trails'
 import Nav from './components/nav'
 import Footer from './components/footer'
 import Detail from './pages/Detail'
+import Create from './pages/Create'
 import { UserProvider } from "./utils/GlobalState"
 
 function App() {
@@ -23,7 +24,10 @@ function App() {
             </Route>
             <Route exact path="/trails/:id">
               <Detail />
-            </Route>    
+            </Route>
+            <Route exact path="/create/:id/">
+              <Create />
+            </Route>
           </Switch>
           <Footer />
         </UserProvider>

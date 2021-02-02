@@ -4,6 +4,9 @@ import { Grid, Paper, TextField, Button, Typography, Container, Box, Menu, MenuI
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import API from '../utils/API';
 import { green, grey } from '@material-ui/core/colors';
+import AddIcon from '@material-ui/icons/Add';
+import { withRouter } from 'react-router-dom';
+import { useUserContext } from "../utils/GlobalState";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,19 +29,40 @@ const useStyles = makeStyles((theme) => ({
     header: {
         backgroundColor: green[700],
         color: grey[200]
+    },
+    button: {
+        color: green[700]
+    },
+    advPaper: {
+        elevation: 10, padding: theme.spacing(2), height: 30, backgroundColor: green[200],
     }
+
 }));
 
 function Detail(props) {
 
+    const { history } = props;
+    
+    const [userState] = useUserContext();
+
+    const handleMenuClick = (pageURL) => {
+        if (userState.email !== null) {
+            history.push(`/create/${pageURL}`)
+        } else {
+            history.push(`/user`)
+        }
+    };
+
     const [trail, setTrail] = useState({})
 
     const { id } = useParams()
+
     useEffect(() => {
         API.getTrail(id)
             .then(res => setTrail(res.data))
             .catch(err => console.log(err))
     }, [])
+
 
     const classes = useStyles();
 
@@ -64,7 +88,7 @@ function Detail(props) {
                             </Grid>
                             <Grid item align="left">
                                 <Chip label={trail.difficulty} />
-                            </Grid>                            
+                            </Grid>
                         </Grid>
                         <Grid item container spacing={2} align="left">
                             <Grid item container className={classes.title}>
@@ -135,13 +159,35 @@ function Detail(props) {
                                 </Typography>
                             </Grid>
                         </Grid>
+                        <Grid item container spacing={2} align="left">
+                            <Grid item container className={classes.title}>
+                                <Typography variant="h5">
+                                    Adventures
+                                </Typography>
+                            </Grid>
+                            <Grid item container>
+                                <Grid item container>
+                                    <Button variant="outlined" className={classes.button} onClick={() => handleMenuClick(trail._id)}>
+                                        <Grid container item>
+                                            <Grid item>
+                                                <Typography variant="h4">
+                                                    Create Adventure
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <AddIcon style={{ fontSize: 40 }} />
+                                            </Grid>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Paper>
             </Container>
-
         </Grid>
     )
 
 }
 
-export default Detail;
+export default withRouter(Detail);
