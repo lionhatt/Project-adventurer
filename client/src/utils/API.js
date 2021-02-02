@@ -57,6 +57,10 @@ export default {
         return axios.put("/api/adventures/"+id)
     },
 
+    addUserToAdventure: function(id, userId) {
+        return axios.put(`/api/adventures/${id}`, userId)
+    },
+
 
 
 }

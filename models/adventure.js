@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const adventureSchema = new Schema({
-    startTime: { type: String, required: true },
-    endTime: { type: String, required: true },
-    startLocation: { type: String, required: true },
+    starttime: { type: String, required: true },
+    endtime: { type: String, required: true },
+    startlocation: { type: String, required: true },
     users: [
         {
-            type: Schema.Types.Objectid,
+            type: Schema.Types.ObjectId,
             ref: "User"
         }
     ]
