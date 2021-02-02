@@ -22,6 +22,14 @@ module.exports = {
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
+    addAdventureToTrail: function (req, res) {
+      db.Trail.findByIdAndUpdate(
+          req.params.id, {$push: {adventure: req.body.data._id}},
+          { new: true, useFindAndModify: false }
+      )
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
     remove: function(req, res) {
       db.Trail.findById({ _id: req.params.id })
         .then(dbModel => dbModel.remove())

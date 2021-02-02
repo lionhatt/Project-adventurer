@@ -33,5 +33,13 @@ module.exports = {
             .findOneAndUpdate({ _id: req.params.id }, req.body)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
-    }
+    },
+    addUserToAdventure: function (req, res) {
+        db.User.findByIdAndUpdate(
+            req.params.id, {$push: {advantures: req.body.data._id}},
+            { new: true, useFindAndModify: false }
+        )
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    },
 }
