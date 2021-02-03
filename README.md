@@ -23,4 +23,4 @@ Your app should now be running on <http://localhost:3000>. The Express server sh
 ![Weather Dashboard demo](Assets/img/React-App.gif)
 
 ## Link
-Launch Weahter Dashboard [Here](https://lionhatt.github.io/Weather-Dashboard/)
+Launch Weahter Dashboard [Here](https://lionhatt-project-adventurer.herokuapp.com/)
