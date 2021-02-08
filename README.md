@@ -20,7 +20,7 @@ npm start
 Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
 
 ## Demostration
-![Weather Dashboard demo](Assets/img/React-App.gif)
+![Project-Adventurer demo](assets/img/React-App.gif)
 
 ## Link
 Launch Weahter Dashboard [Here](https://lionhatt-project-adventurer.herokuapp.com/)
