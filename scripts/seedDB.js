@@ -1,14 +1,20 @@
 const mongoose = require("mongoose");
 const db = require("../models");
+// const uri = "mongodb+srv://admin:elaine0803@cluster0.16z05.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const uri = "mongodb://admin:elaine0803@cluster0-shard-00-00.16z05.mongodb.net:27017,cluster0-shard-00-01.16z05.mongodb.net:27017,cluster0-shard-00-02.16z05.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-szbz2w-shard-0&authSource=admin&retryWrites=true&w=majority"
 
 // This file empties the Posts collection and inserts the books below
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactcms", {
+mongoose.connect(uri || "mongodb://localhost/reactcms", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false
 });
+
+mongoose.connection.on('connected', () => {
+    console.log("Mongoose is connected!")
+})
 
 const trailSeed = [
     {

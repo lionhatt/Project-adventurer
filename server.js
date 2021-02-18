@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const routes = require("./routes")
 const PORT = process.env.PORT || 3001;
 const app = express();
+const uri = "mongodb+srv://admin:elaine0803@cluster0.16z05.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -19,7 +20,7 @@ app.use(routes)
 // Send every other request to the React app
 // Define any API routes before this runs
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactcms", {
+mongoose.connect(uri || "mongodb://localhost/reactcms", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
