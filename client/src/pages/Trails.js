@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Paper, TextField, Button, Typography, Container, Box, Menu, MenuItem, FormControlLabel, Checkbox, Chip, ButtonBase, List, ListItem } from '@material-ui/core';
+import { Grid, Paper, TextField, Button, Typography, Container, Box, Menu, MenuItem, FormControlLabel, Checkbox, Chip, ButtonBase, List, ListItem, Slider } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { green } from '@material-ui/core/colors';
@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     },
     img: {
         margin: 'auto', display: 'block', width: '100%', height: '100%'
+    },
+    lengthDiv: {
+        width: 150
     }
 }));
 
@@ -137,6 +140,14 @@ function Trails(props) {
         setAnchorRoute(null);
     };
 
+    const [length, setLength] = useState([0, 150]);
+    const lengthText = (length) => {
+        return `${length}km`
+    };
+    const handleLenghthChange = (event, newValue) => {
+        setLength(newValue);
+    };
+
 
 
     return <div className={classes.root}>
@@ -197,7 +208,18 @@ function Trails(props) {
                         open={Boolean(anchorLength)}
                         onClose={handleLengthClose}
                     >
-                        <MenuItem>Length</MenuItem>
+                        <MenuItem>
+                            <div className={classes.lengthDiv}>
+                                <Slider
+                                    value={length}
+                                    onchange={handleLenghthChange}
+                                    valueLabelDisplay="auto"
+                                    aria-labelledby="range-slider"
+                                    getArialValueText={lengthText}
+                                />
+                            </div>
+
+                        </MenuItem>
                     </StyledMenu>
                 </Grid>
                 <Grid item xs={3}>
