@@ -23,4 +23,4 @@ Your app should now be running on <http://localhost:3000>. The Express server sh
 ![Project-Adventurer demo](assets/img/React-App.gif)
 
 ## Link
-Launch Weahter Dashboard [Here](https://lionhatt-project-adventurer.herokuapp.com/)
+Launch Adventurer [Here](https://lionhatt-project-adventurer.herokuapp.com/)
